@@ -75,16 +75,6 @@ function App() {
     }
   };
 
-  const delContact = async (contact) => {
-    try {
-      const { data } =await deleteContact(contact.id);
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-      toastError(error.message);
-    }
-  }
-
   const updateImage = async (formData) => {
     try {
       const { data: photoUrl } = await udpatePhoto(formData);
@@ -98,7 +88,7 @@ function App() {
 
   useEffect(() => {
     getAllContacts();
-  }, []);
+  });
 
   return (
     <>
@@ -129,7 +119,7 @@ function App() {
               </div>
               <div className="input-box">
                 <span className="details">Email</span>
-                <input type="text" value={values.email} onChange={onChange} name='email' required />
+                <input type="text" placeholder='email@example.com' value={values.email} onChange={onChange} name='email' required />
               </div>
               <div className="input-box">
                 <span className="details">Title</span>
@@ -137,7 +127,7 @@ function App() {
               </div>
               <div className="input-box">
                 <span className="details">Phone Number</span>
-                <input type="text" value={values.phone} onChange={onChange} name='phone' required />
+                <input type="text" placeholder='123-456-7890' value={values.phone} onChange={onChange} name='phone' required />
               </div>
               <div className="input-box">
                 <span className="details">Address</span>
@@ -145,11 +135,11 @@ function App() {
               </div>
               <div className="input-box">
                 <span className="details">Account Status</span>
-                <input type="text" value={values.status} onChange={onChange} name='status' required />
+                <input type="text" placeholder='Active/Inactive' value={values.status} onChange={onChange} name='status' required />
               </div>
               <div className="file-input">
                 <span className="details">Profile Photo</span>
-                <input type="file" onChange={(event) => setFile(event.target.files[0])} ref={fileRef} name='photo' required />
+                <input type="file" onChange={(event) => setFile(event.target.files[0])} ref={fileRef} name='photo' />
               </div>
             </div>
             <div className="form_footer">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { deleteContact, getContact } from '../api/ContactService';
 import { toastError, toastSuccess } from '../api/ToastService';
 
@@ -62,16 +62,19 @@ const ContactDetail = ({ updateContact, updateImage }) => {
         setContact({ ...contact, [event.target.name]: event.target.value });
     };
 
+    let navigate = useNavigate();
     const onUpdateContact = async (event) => {
         event.preventDefault();
         await updateContact(contact);        
         fetchContact(id);
         toastSuccess('Contact Updated');
+        navigate('/contacts');
     };
 
     const onDeleteContact = async (event) => {
         await delContact(id);
         toastSuccess('Contact Deleted');
+        navigate('/contacts');
     }
 
     useEffect(() => {
@@ -124,7 +127,9 @@ const ContactDetail = ({ updateContact, updateImage }) => {
                                 <button type="submit" className="btn">Save</button>
                             </div>
                         </form>
-                        <button onClick={onDeleteContact} type="submit" className="btn btn-danger">Delete</button>
+                        <div className="form_footer">
+                            <button onClick={onDeleteContact} type="submit" className="btn btn-danger">Delete</button>
+                        </div>
                     </div>
                 </div>
             </div>
